@@ -1,4 +1,4 @@
-package main
+package actionstats
 
 import "sync"
 
@@ -21,11 +21,11 @@ type Stats struct {
 	sum   int
 }
 
-// GetActionStats returns a map dereference pair (value at key, existence of value at key) for a given action.
+// GetActionStats returns a map dereference pair (value at key, existence of key) for a given action.
 func (a *ActionStore) GetActionStats(action string) (value Stats, ok bool) {
-	a.Lock()
+	a.RLock()
 	val, ok := a.store[action]
-	a.Unlock()
+	a.RUnlock()
 	return val, ok
 }
 
@@ -33,7 +33,7 @@ func (a *ActionStore) GetAllActionStats() map[string]Stats {
 	return a.store
 }
 
-// performs concurrency-safe update/initialization to stats map value
+// MergeNewAction performs concurrency-safe update/initialization to stats map value
 func (a *ActionStore) MergeNewAction(action string, time int) {
 	stats, ok := a.GetActionStats(action)
 	a.Lock()
@@ -50,23 +50,4 @@ func (a *ActionStore) MergeNewAction(action string, time int) {
 		a.store[action] = stats
 	}
 	a.Unlock()
-}
-
-func (a *ActionStore) AddAction(s string) error {
-	aMsg, e := FromJSON(s)
-	if e == nil {
-		a.MergeNewAction(aMsg.Action, aMsg.Time)
-	}
-	return e
-}
-
-func (a *ActionStore) GetStats() string {
-	stats := a.GetAllActionStats()
-	var avgs []map[string]int
-	for k, v := range stats {
-		el := make(map[string]int)
-		el[k] = v.avg
-		avgs = append(avgs, el)
-	}
-	return ToJSON(avgs)
 }

@@ -1,4 +1,4 @@
-package main
+package actionstats
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ type ActionMsg struct {
 	Time   int    `json:"time"`
 }
 
-func FromJSON(s string) (a ActionMsg, e error) {
+func FromActionJSON(s string) (a ActionMsg, e error) {
 	b := []byte(s)
 	var aMsg ActionMsg
 	err := json.Unmarshal(b, &aMsg)
@@ -22,13 +22,11 @@ type ActionAvg struct {
 	Avg    int    `json:"avg"`
 }
 
-type StatsMsg []*ActionAvg
-
-func ToJSON(avgs []map[string]int) string {
+func ToStatsJSON(avgs []ActionAvg) string {
 	var jsonData []byte
 	jsonData, err := json.Marshal(avgs)
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
 	return string(jsonData)
 }
