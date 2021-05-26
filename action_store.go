@@ -23,20 +23,20 @@ type Stats struct {
 
 // GetActionStats returns a map dereference pair (value at key, existence of key) for a given action.
 func (a *ActionStore) GetActionStats(action string) (value Stats, ok bool) {
-	a.RLock()
 	val, ok := a.Store[action]
-	a.RUnlock()
 	return val, ok
 }
 
 func (a *ActionStore) GetAllActionStats() map[string]Stats {
+	a.Lock()
+	defer a.Unlock()
 	return a.Store
 }
 
 // MergeNewAction performs concurrency-safe update/initialization to stats map value
 func (a *ActionStore) MergeNewAction(action string, time int) {
-	stats, ok := a.GetActionStats(action)
 	a.Lock()
+	stats, ok := a.GetActionStats(action)
 	if !ok {
 		a.Store[action] = Stats{
 			Avg:   time,

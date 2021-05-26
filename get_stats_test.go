@@ -56,6 +56,7 @@ func TestGetStats(t *testing.T) {
 func TestGetStatsConcurrently(t *testing.T) {
 	store := NewActionStore()
 	t.Run("it should allow concurrent calls", func(t *testing.T) {
+		t.Parallel()
 		var wg sync.WaitGroup
 		wg.Add(len(tt.in))
 		for _, s := range tt.in {
@@ -63,10 +64,6 @@ func TestGetStatsConcurrently(t *testing.T) {
 			go func() {
 				defer wg.Done()
 				store.AddAction(current)
-				// e := store.AddAction(current)
-				// if e != nil {
-				// 	t.Fatal("should add each action to store without error:", e)
-				// }
 			}()
 		}
 		wg.Wait()
