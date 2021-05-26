@@ -6,7 +6,7 @@ func (a *ActionStore) GetStats() string {
 	for k, v := range stats {
 		el := ActionAvg{
 			Action: k,
-			Avg:    v.avg,
+			Avg:    v.Avg,
 		}
 		avgs = append(avgs, el)
 	}

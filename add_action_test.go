@@ -29,10 +29,10 @@ var tt = testCase{
 		`{"action":"jump", "time":500}`,
 	},
 	effect: map[string]Stats{
-		"dance": {avg: 172, count: 2, sum: 344},
-		"jump":  {avg: 300, count: 5, sum: 1500},
-		"run":   {avg: 90, count: 4, sum: 360},
-		"sing":  {avg: 126, count: 1, sum: 126},
+		"dance": {Avg: 172, Count: 2, Sum: 344},
+		"jump":  {Avg: 300, Count: 5, Sum: 1500},
+		"run":   {Avg: 90, Count: 4, Sum: 360},
+		"sing":  {Avg: 126, Count: 1, Sum: 126},
 	},
 	out: []ActionAvg{
 		{Action: "dance", Avg: 172},
