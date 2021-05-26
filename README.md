@@ -8,13 +8,14 @@ Since the assignment calls for a "small library class", I've structured the code
 
 With the prerequisites covered, follow these steps for a sample use of the imported library.
 
-(Steps 1-5 are to be run in the terminal. These commands assume bash shell and *nix system; run equivalent for your OS)
+(Steps 1-5 and 6 are to be run in the terminal. These commands assume bash shell and *nix system; run equivalent for your OS)
 1. `mkdir <yourdirname>`
 2. `cd <yourdirname>`
 3. `go mod init github.com/<yournamespace>/<yourdirname>` (substitute gitlab/bitbucket/etc. as needed; change templated namespace and project name)
-4. `go get github.com/danielhoward314/actionstats@v0.1.1`
+4. `go get github.com/danielhoward314/actionstats@v0.1.2`
 5. `touch main.go`
-6. Open `main.go` in a code editor and paste the following code snippet:
+6. Open `main.go` in a code editor and paste the code snippet below:
+7. Back in terminal, run `main.go`
 
 ```
 package main
