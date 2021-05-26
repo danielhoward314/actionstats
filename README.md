@@ -12,7 +12,7 @@ With the prerequisites covered, follow these steps for a sample use of the impor
 1. `mkdir <yourdirname>`
 2. `cd <yourdirname>`
 3. `go mod init github.com/<yournamespace>/<yourdirname>` (substitute gitlab/bitbucket/etc. as needed; change templated namespace and project name)
-4. `go get github.com/danielhoward314/actionstats@v0.1.2`
+4. `go get github.com/danielhoward314/actionstats@v0.1.3`
 5. `touch main.go`
 6. Open `main.go` in a code editor and paste the code snippet below:
 7. Back in terminal, run `main.go`
@@ -35,8 +35,8 @@ func main() {
 		`{"action":"jump", "time":200}`,
 	}
 	var wg sync.WaitGroup
+	wg.Add(len(testCases))
 	for _, s := range testCases {
-		wg.Add(1)
 		current := s
 		go func() {
 			defer wg.Done()
